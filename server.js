@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({
 app.use(router);
 
 // Use deployed database or local mongoArticles database
-var db = process.env.MONODB_URI || "mongodb://localhost/mongoArticles";
+var db = process.env.MONGODB_URI || "mongodb://localhost/mongoArticles";
 
 // Connecting mongoose to database
 mongoose.connect(db, function(error) {
