@@ -1,6 +1,3 @@
-/**
- * Created by russel on 16-May-19.
- */
 
 const db = require('../models');
 const axios = require('axios');

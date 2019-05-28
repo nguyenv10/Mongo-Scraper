@@ -1,6 +1,4 @@
-/**
- * Created by russel on 19-May-19.
- */
+
 
 module.exports = (app) => {
     const controller = require('../controllers/scrapperController.js');

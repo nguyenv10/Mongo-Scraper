@@ -1,7 +1,3 @@
-/**
- * Created by russel on 16-May-19.
- */
-
 
 module.exports = (app) => {
     const notes = require('../controllers/note.controller.js');

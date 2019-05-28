@@ -1,45 +1,53 @@
-/**
- * Created by russel on 19-May-19.
- */
+// Require Dependencies 
+var express = require("express");
+var expressHandlebars = require("express-handlebars");
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 
-let express = require('express'),
-    exphbs  = require('express-handlebars'),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    app = express(),
-    port = 8000,
-    request = require("request"),
-    cheerio = require("cheerio"),
-    mongoose = require('mongoose');
+// Setting up the port
+var PORT = process.env.PORT || 3000;
 
-app.set('port', process.env.port || port); // set express to use this port
-app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+// Express App
+var app = express();
 
-app.use(bodyParser.json()); // parse form data client
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(__dirname + '/public'));
+// Setting up Express Router
+var router = express.Router();
 
-// Configuring the database
-const dbConfig = require('./config/database.config.js');
+// Requiring routes file to pass router object
+require("./config/routes")(router);
 
+// Set Public Folder as a static directory 
+app.use(express.static(_dirname + "/public"));
 
-mongoose.Promise = global.Promise;
+// Connecting handlebars to express app
+app.set ("view engine", "handlebars");
 
-// Connecting to the database
-mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true
-}).then(() => {
-    console.log("Successfully connected to the database");
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
+app.engine("handlebars", expressHandlebars({
+    defaultLayout: "main"
+}));
+
+// Using bodyParsing in the app
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+// All requests goes through router middleware
+app.use(router);
+
+// Use deployed database or local mongoArticles database
+var db = process.env.MONODB_URI || "mongodb://localhost/mongoArticles";
+
+// Connecting mongoose to database
+mongoose.connect(db, function(error) {
+    if (error) {
+        console.log(error);
+    }
+    else {
+        console.log("connect mongoose is successful")
+    }
 });
 
-require('./app/routes/index.js')(app);
-
-app.listen(port, ()=>{
-    console.log(`server running on port: ${port}`);
+// Listening on the port
+app.listen(PORT, function() {
+    console.log("Listening on port:" + PORT);
 });
-

@@ -1,7 +1,3 @@
-/**
- * Created by russel on 16-May-19.
- */
-
 
 const mongoose = require('mongoose');
 
