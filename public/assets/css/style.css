@@ -1,0 +1,244 @@
+body{
+    font-family: "Roboto Mono";
+    background:#ffffff;
+    font-size: 150%;
+    height: 100%;
+}
+.wrapper{
+
+}
+.gradient-bg{
+    background: rgb(43,198,229); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(43,198,229,1) 1%, rgba(35,221,215,1) 19%, rgba(128,215,237,1) 63%, rgba(43,198,229,1) 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(43,198,229,1) 1%,rgba(35,221,215,1) 19%,rgba(128,215,237,1) 63%,rgba(43,198,229,1) 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(43,198,229,1) 1%,rgba(35,221,215,1) 19%,rgba(128,215,237,1) 63%,rgba(43,198,229,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2bc6e5', endColorstr='#2bc6e5',GradientType=1 );
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.up-20{
+    margin-top: -20px;
+}
+
+.navbar a{
+    color: #fff;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.navbar-nav > li >  a:hover{
+    background-color: #1b9ac8;
+}
+.navbar-nav > li >  a:active, .navbar-nav > li >  a:visited{
+    background-color: #1b9ac8;
+}
+
+
+span.icon-bar{
+    color: #ffffff;
+}
+
+.body-bg{
+    background: rgb(0,183,234); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(0,183,234,1) 0%, rgba(0,158,195,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,183,234,1) 0%,rgba(0,158,195,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,183,234,1) 0%,rgba(0,158,195,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 );
+    min-height: 100vh;
+}
+
+.well{
+    background: transparent;
+}
+
+body:not(.modal-open){
+    padding-right: 0 !important;
+}
+
+.jumbotron {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    padding: 0;
+    font-family: "Cormorant SC";
+    box-shadow: 10px 5px 20px 2px lightslategrey;
+}
+
+.jumbotron .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: auto;
+    background: linear-gradient(#333, black);
+    opacity: 0.7;
+}
+
+.jumbotron .background-image {
+    height: 100%;
+    background-image: url("../img/newspaper.jpg");
+    background-size: cover;
+}
+
+.jumbotron .caption {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+}
+
+.jumbotron .caption h1,
+.jumbotron .caption p {
+    color: white;
+}
+
+.jumbotron h1 {
+    font-size: 80px;
+    font-weight: 800;
+}
+
+.jumbotron p {
+    font-size: 30px;
+}
+
+span.closeAlert{
+    color: #710909;
+    cursor: pointer;
+    font-size: 26px;
+    font-weight: 800;
+    float: right;
+    padding-bottom: 5px;
+}
+
+h4.media-heading{
+    font-size: 26px;
+    font-weight: 800;
+    cursor: pointer;
+    padding: 5px;
+}
+h4.media-heading a{
+    text-decoration: none;
+}
+
+p.author{
+    font-size: 12px;
+    color: #333333;
+    padding: 5px;
+}
+
+p.summary{
+    font-size: 20px;
+    color: #333333;
+    padding: 5px;
+}
+
+span.comment{
+    cursor: pointer;
+}
+
+span.comment:hover{
+    cursor: pointer;
+    color: #528CE0;
+}
+
+ul.list-inline li:hover{
+    color: #b6e012;
+}
+
+div.alert {
+     color: #ffffff;
+     font-size: 20px;
+     font-weight: 500;
+ }
+
+.alert-info {
+    background-color: #55c3fb;
+}
+
+.alert-success {
+    background-color: #52af00;
+}
+
+.alert-danger {
+    background-color: #ed281d;
+}
+.alert-warning {
+    background-color: #edbe29;
+}
+
+.my-btn {
+    border: 2px solid black;
+    background: transparent;
+    font-size: 26px;
+    cursor: pointer;
+    font-weight: 700;
+    min-width: 100px;
+    border-radius: 10px;
+    margin: 5%;
+    padding: 5px;
+    color: #000000;
+}
+
+
+.save {
+    border-color: #49af06;
+    color: #49af06;
+}
+
+.save:hover {
+    background-color: #49af06;
+    color: #ffffff;
+}
+
+
+/* Green */
+.delete {
+    border-color: #af080b;
+    color: #af080b;
+}
+
+.delete:hover {
+    background-color: #af080b;
+    color: #ffffff;
+}
+
+
+.well:hover, .panel:hover{
+    background: rgb(0,183,234); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(0,183,234,1) 0%, rgba(0,158,195,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,183,234,1) 0%,rgba(0,158,195,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,183,234,1) 0%,rgba(0,158,195,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 );
+}
+
+.well:hover h4.media-heading a, .panel:hover h4.media-heading a{
+    color: #ffffff;
+}
+
+.well:hover p, .panel:hover p{
+    color: #000;
+}
+.well:hover button.save, .panel:hover button.save{
+    color: #ffffff;
+}
+
+.well:hover span.comment:hover{
+     color: #fdff13;
+ }
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    color: white;
+}
+
+.footer > .container > p {
+    font-weight: 800;
+    padding-top: 20px;
+}

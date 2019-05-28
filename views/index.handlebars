@@ -1,0 +1,251 @@
+<nav class="navbar  gradient-bg navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Web Scrapper</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="/saved"><i class="fa fa-newspaper-o "></i> Saved Article</a></li>
+                    <li><a href="/scrap"><i class="fa fa-plus"></i> Scrap New Article</a></li>
+                </ul>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="jumbotron text-center">
+    <div class="overlay">
+    </div>
+    <div class="background-image">
+    </div>
+    <div class="caption">
+        <h1>Web Scraper</h1>
+        <p>New York Times Edition</p>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="alert alert-info">
+        <span class="closeAlert" onclick="this.parentElement.style.display='none';">&times;</span>
+        <span class="text-center"><span class="count">{{dbArticle.length}}</span> Saved article found</span>
+    </div>
+    {{#each dbArticle}}
+    <div class="well" id="well_{{id}}">
+        <div class="media">
+            <a class="pull-left" target="_blank" href="{{imageURL}}">
+                <img class="media-object" src="{{imageURL}}" height="280px" width="400px">
+            </a>
+            <div class="media-body">
+                <div class="col-md-10">
+                    <h4 class="media-heading"><a href="{{url}}">{{headline}}</a></h4>
+                    <p class="text-left author">By Francisco</p>
+                    <p class="summary">{{summary}}</p>
+                    <ul class="list-inline list-unstyled">
+                        <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                        <li>|</li>
+                        <span class="comment" article-id="{{id}}"><i class="glyphicon glyphicon-comment"></i> <!--{{note.length}}--> comments</span>
+                        <li>|</li>
+                        <li>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        </li>
+                        <li>|</li>
+                        <li>
+                            <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                            <span><i class="fa fa-facebook-square"></i></span>
+                            <span><i class="fa fa-twitter-square"></i></span>
+                            <span><i class="fa fa-google-plus-square"></i></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <button class="my-btn delete removeArticle" data-id="{{id}}" type="button">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="alert alert-warning">
+        <p class="text-center" style="font-weight: 500; font-size: 22px;"><strong>Uh Oh. Looks like we don't have any saved articles. </strong><a href="/scrap">Scrap New Article</a> </p>
+    </div>
+    {{/each}}
+
+</div>
+
+
+<footer class="footer gradient-bg">
+    <div class="container">
+        <p class="text-center">New York Times - Web Scraper </p>
+    </div>
+</footer>
+
+<div class="modal fade" id="comment-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Comment List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div id="modal_body"> </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="articleId" id="articleId" value="">
+                    <textarea class="form-control" id="comment" placeholder="Add Comment"></textarea>
+                </div>
+                <div class="form-group text-right">
+                    <input type="button" id="AddComment" class="btn btn-primary" value="Add Comment">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="remove-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="alert alert-success"  style="margin-top: 20px;">
+                <p class="text-center" id="removedText"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        function fetchAllComment(articleID){
+            let  htmlString = '';
+            $.ajax({
+                beforeSend: function(){
+                    //$.blockUI();
+                },
+                success: function(response){
+                    let count = 0;
+                    $.each(response, function(i, item) {
+                        htmlString = htmlString+'<div class="panel"><div class="panel-body"> <div class="col-md-8"><p>'+item.body+'</p></div>';
+                        htmlString = htmlString+'<div class="col-md-4"><button class="my-btn delete pull-right removeComment" data-id="'+item._id+'" type="button">Remove</button></div></div></div>';
+                        count++;
+                    });
+                    //console.log(htmlString);
+                    $("#modal_body").children().remove();
+                    if(count > 0)
+                        $("#modal_body").append(htmlString);
+                    else{
+                        htmlString = '<div class="alert alert-warning" style="margin-top: 20px;"><p class="text-center">No comment found</p></div>';
+                        $("#modal_body").append(htmlString);
+                    }
+
+                    $("#comment").val('');
+                    $("#comment-modal").modal("show");
+                },
+                type: 'post',
+                url: "/api/populateNote",
+                data: {
+                    articleID:articleID
+                },
+                cache: false,
+                dataType: 'json'
+            });
+        }
+
+        $(document).on("click","button.removeArticle",function() {
+            let id = $(this).data('id'), clicked = $(this), divId = 'well_'+id;
+
+            $.ajax({
+                beforeSend: function(){
+                    //$.blockUI();
+                },
+                success: function(response){
+                    if(response === "success"){
+                        $("#removedText").text('Article removed successfully');
+                        $("#remove-modal").modal('show');
+                        $("div#"+divId).remove();
+                        setTimeout(function(){
+                            $("#remove-modal").modal("hide");
+                        }, 2000);
+                    }
+                },
+                type: 'post',
+                url: "/api/deleteArticle",
+                data: {
+                    articleId:id
+                },
+                cache: false,
+                dataType: 'json'
+            });
+        });
+
+        $(document).on("click","span.comment",function() {
+            let id = $(this).attr('article-id'), htmlString = '';
+            $("#articleId").val(id);
+            fetchAllComment(id);
+
+        });
+
+        $(document).on("click","#AddComment",function() {
+            let comment = $("#comment").val(),id = $("#articleId").val();;
+
+            $.ajax({
+                beforeSend: function(){
+                    //$.blockUI();
+                },
+                success: function(response){
+                    fetchAllComment(id);
+                },
+                type: 'post',
+                url: "/api/addComment",
+                data: {
+                    body:comment,articleId:id
+                },
+                cache: false,
+                dataType: 'json'
+            });
+        });
+
+        $(document).on("click","button.removeComment",function() {
+            let id = $(this).data('id'), clicked = $(this);
+            $.ajax({
+                beforeSend: function(){
+                    //$.blockUI();
+                },
+                success: function(response){
+                    clicked.parent().parent().css('display','none');
+                    $("#removedText").text('Comment removed successfully');
+                    $("#remove-modal").modal('show');
+                    setTimeout(function(){
+                        $("#remove-modal").modal("hide");
+                    }, 2000);
+                },
+                type: 'post',
+                url: "/api/deleteComment",
+                data: {
+                    commentId:id
+                },
+                cache: false,
+                dataType: 'json'
+            });
+        });
+    });
+</script>
